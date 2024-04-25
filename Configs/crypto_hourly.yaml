@@ -1,0 +1,43 @@
+model:
+  type: CNNModel
+  params:
+    number_filter: 8
+    number_of_stocks: 5
+    seq_len: 60
+    number_feature: 82
+    drop: 0.1
+
+loss_function:
+  type: BCELoss
+  params: {}
+
+optimizer:
+  type: Adam
+  lr: 0.001
+  weight_decay: 128
+
+scheduler:
+  type: ReduceLROnPlateau
+  mode: min
+  factor: 0.5
+  patience: 20
+  threshold: 0.001
+  threshold_mode: rel
+  cooldown: 0
+  min_lr: 0.00001
+  eps: 1e-08
+  verbose: true
+
+preprocess:
+  dataset_path: ./Datasets/hourlyCrypto.pkl
+  n_day_predict: 1
+  seq_len: 60
+  Val_first: True
+  Trim_end:    2023-01-01
+  Split_Date1: 2023-02-01
+  Split_Date2: 2024-03-01
+
+train: 
+  epoch: 200
+  batch_size: 128
+  num_workers: 4
